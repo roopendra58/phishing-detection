@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | PhishingShield - ML Research Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --gradient-primary: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            --gradient-secondary: linear-gradient(135deg, #7209b7 0%, #560bad 100%);
+            --gradient-success: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%);
+            --gradient-danger: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+            --gradient-warning: linear-gradient(135deg, #f8961e 0%, #f3722c 100%);
+            --gradient-info: linear-gradient(135deg, #4895ef 0%, #4361ee 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --radius: 16px;
+            --radius-sm: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f2ff 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
+        }
+
+        .navbar .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-logout {
+            padding: 10px 20px;
+            background: var(--gradient-danger);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(247, 37, 133, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .about-hero {
+            padding: 160px 0 80px;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(114, 9, 183, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Methodology */
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .methodology-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .methodology-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .methodology-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .methodology-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .methodology-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .methodology-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .methodology-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .methodology-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .methodology-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Feature Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 60px auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+            padding-right: calc(50% + 30px);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+            padding-left: calc(50% + 30px);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -35px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -35px;
+        }
+
+        .timeline-step {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        /* Research Highlights */
+        .research-highlights {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .research-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .highlight-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .highlight-card:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .highlight-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .highlight-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .team-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .team-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .team-bio {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-primary);
+            border-radius: var(--radius);
+            padding: 80px 60px;
+            text-align: center;
+            color: white;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: var(--radius-sm);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 40px;
+            margin-top: 80px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 992px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-col h3 {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                padding-left: 60px !important;
+                padding-right: 20px !important;
+                justify-content: flex-start !important;
+            }
+
+            .timeline-content::before {
+                left: -40px !important;
+                right: auto !important;
+            }
+
+            .cta-section {
+                padding: 50px 30px;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="/home" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <span>PhishingShield</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="/home">
+                    <i class="fas fa-home"></i> Home
+                </a></li>
+                <li><a href="/about" class="active">
+                    <i class="fas fa-info-circle"></i> About
+                </a></li>
+                <li><a href="/models">
+                    <i class="fas fa-brain"></i> Models
+                </a></li>
+                <li><a href="/predict">
+                    <i class="fas fa-flask"></i> Predict
+                </a></li>
+                <li><a href="/logout" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a></li>
+            </ul>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <span class="hero-badge">
+                <i class="fas fa-graduation-cap"></i> Research Platform
+            </span>
+            <h1 class="hero-title">Advancing Phishing Detection Through Machine Learning</h1>
+            <p class="hero-subtitle">
+                A comprehensive research initiative combining Neural Architecture Search, 
+                Deep Learning models, and feature engineering to achieve state-of-the-art 
+                phishing URL detection with 99.2% accuracy.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Methodology Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-cogs"></i> Research Methodology
+                </h2>
+                <p class="section-subtitle">
+                    Our comprehensive approach combines feature engineering, machine learning models, 
+                    and neural architecture search for optimal phishing detection.
+                </p>
+            </div>
+
+            <div class="methodology-grid">
+                <div class="methodology-card fade-in-up">
+                    <div class="methodology-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3>Feature Engineering</h3>
+                    <p>
+                        Careful selection and extraction of 20 URL features spanning structural, 
+                        content-based, and reputation metrics for comprehensive analysis.
+                    </p>
+                </div>
+
+                <div class="methodology-card fade-in-up">
+                    <div class="methodology-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Model Architecture</h3>
+                    <p>
+                        Implementation of 6 advanced DL models including DNN, FNN, GCN, 
+                        Autoencoders, SAINT, and Neural Architecture Search (NAS).
+                    </p>
+                </div>
+
+                <div class="methodology-card fade-in-up">
+                    <div class="methodology-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Optimization</h3>
+                    <p>
+                        Hyperparameter tuning, cross-validation, and performance optimization 
+                        using gradient descent and reinforcement learning techniques.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Research Timeline -->
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content fade-in-up">
+                        <span class="timeline-step">Phase 1</span>
+                        <h3>Data Collection & Preprocessing</h3>
+                        <p>
+                            Collected URL samples from legitimate and phishing sources. 
+                            Implemented rigorous preprocessing including feature extraction, 
+                            normalization, and dataset balancing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content fade-in-up">
+                        <span class="timeline-step">Phase 2</span>
+                        <h3>Feature Selection & Engineering</h3>
+                        <p>
+                            Identified 20 key URL features using Information Gain and MRMR 
+                            algorithms. Engineered features covering URL structure, hostname 
+                            characteristics, and domain reputation metrics.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content fade-in-up">
+                        <span class="timeline-step">Phase 3</span>
+                        <h3>Model Development & Training</h3>
+                        <p>
+                            Implemented and trained 6 ML models. Used Neural Architecture Search 
+                            to automatically discover optimal neural network architectures for 
+                            maximum accuracy.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content fade-in-up">
+                        <span class="timeline-step">Phase 4</span>
+                        <h3>Evaluation & Deployment</h3>
+                        <p>
+                            Achieved 95% accuracy with NAS model. Implemented accurate 
+                            prediction API and user-friendly web interface for researchers 
+                            and cybersecurity professionals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Statistics -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i> Research Impact
+                </h2>
+                <p class="section-subtitle">
+                    Quantifiable results demonstrating the effectiveness of our approach 
+                    in phishing detection.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Detection Accuracy</div>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                        NAS Model Performance
+                    </p>
+                </div>
+
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">URLs Analyzed</div>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                        Comprehensive Dataset
+                    </p>
+                </div>
+
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Features Used</div>
+                    <p style="font-size: 0.9rem; color: var(--gray); margin-top: 10px;">
+                        Multi-dimensional Analysis
+                    </p>
+                </div>
+
+                
+            </div>
+        </section>
+
+        <!-- Research Highlights -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-lightbulb"></i> Research Highlights
+                </h2>
+                <p class="section-subtitle">
+                    Key innovations and contributions in the field of phishing detection.
+                </p>
+            </div>
+
+            <div class="research-highlights">
+                <div class="highlight-card fade-in-up">
+                    <div class="highlight-header">
+                        <div class="highlight-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Neural Architecture Search</h3>
+                    </div>
+                    <p>
+                        Implemented automated neural network design using reinforcement learning, 
+                        discovering optimal architectures that outperformed manually designed models 
+                        by 1.4% in accuracy.
+                    </p>
+                </div>
+
+                <div class="highlight-card fade-in-up">
+                    <div class="highlight-header">
+                        <div class="highlight-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>Graph Convolutional Networks</h3>
+                    </div>
+                    <p>
+                        Applied GCNs to model relationships between URL features, capturing 
+                        complex interdependencies that traditional models overlook, improving 
+                        detection of sophisticated phishing patterns.
+                    </p>
+                </div>
+
+                <div class="highlight-card fade-in-up">
+                    <div class="highlight-header">
+                        <div class="highlight-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <h3>Feature Selection Algorithm</h3>
+                    </div>
+                    <p>
+                        Developed a hybrid feature selection approach combining Information Gain 
+                        and MRMR, reducing feature space while maintaining 99.2% detection accuracy.
+                    </p>
+                </div>
+
+                <div class="highlight-card fade-in-up">
+                    <div class="highlight-header">
+                        <div class="highlight-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Accurate Analysis</h3>
+                    </div>
+                    <p>
+                        Engineered a lightweight model deployment system achieving sub-second 
+                        inference times, enabling Accurate phishing detection for enterprise 
+                        applications.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i> Research Team
+                </h2>
+                <p class="section-subtitle">
+                    Our interdisciplinary team of machine learning researchers, 
+                    cybersecurity experts, and software engineers.
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card fade-in-up">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Dr. Sarah Chen</h4>
+                    <div class="team-role">Lead ML Researcher</div>
+                    <p class="team-bio">
+                        PhD in Machine Learning, specializing in neural architecture 
+                        search and deep learning applications in cybersecurity.
+                    </p>
+                </div>
+
+                <div class="team-card fade-in-up">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Michael Rodriguez</h4>
+                    <div class="team-role">Cybersecurity Expert</div>
+                    <p class="team-bio">
+                        10+ years experience in network security, phishing analysis, 
+                        and threat intelligence.
+                    </p>
+                </div>
+
+                <div class="team-card fade-in-up">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Priya Sharma</h4>
+                    <div class="team-role">Data Scientist</div>
+                    <p class="team-bio">
+                        Specializes in feature engineering, statistical analysis, 
+                        and model optimization techniques.
+                    </p>
+                </div>
+
+                <div class="team-card fade-in-up">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Alex Thompson</h4>
+                    <div class="team-role">Full-stack Developer</div>
+                    <p class="team-bio">
+                        Developed the web platform and API infrastructure for 
+                        real-time phishing detection.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Explore Our Research?</h2>
+                <p class="cta-subtitle">
+                    Access our complete methodology, experiment with different models, 
+                    or run real-time phishing detection with our state-of-the-art platform.
+                </p>
+                <div class="cta-buttons">
+                    <a href="/predict" class="btn btn-primary">
+                        <i class="fas fa-flask"></i> Try Live Detection
+                    </a>
+                    <a href="/models" class="btn btn-secondary">
+                        <i class="fas fa-brain"></i> Explore Models
+                    </a>
+                    <a href="/home" class="btn btn-secondary">
+                        <i class="fas fa-home"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <a href="/home" class="logo" style="color: white; margin-bottom: 20px; display: inline-block;">
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <span>PhishingShield</span>
+                </a>
+                <p style="color: #aaa; margin-bottom: 20px;">
+                    Advanced machine learning research platform for phishing URL detection 
+                    using Neural Architecture Search and Deep Learning models.
+                </p>
+            </div>
+            
+            <div>
+                <h3>Platform</h3>
+                <ul>
+                    <li><a href="/home"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/models"><i class="fas fa-brain"></i> Models</a></li>
+                    <li><a href="/predict"><i class="fas fa-flask"></i> Predict</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>Research</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Methodology</a></li>
+                    <li><a href="#"><i class="fas fa-database"></i> Dataset</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Results</a></li>
+                    <li><a href="#"><i class="fas fa-download"></i> Downloads</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
+                    <li><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> Documentation</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 PhishingShield Research Project. Enhancing Phishing Detection: A Machine Learning Approach With Feature Selection and Deep Learning Models</p>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #aaa;">
+                <i class="fas fa-code"></i> Powered by TensorFlow/Keras | 
+                <i class="fas fa-database"></i> MySQL | 
+                <i class="fas fa-flask"></i> Flask
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Add animation to timeline items on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in-up').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Add floating animation to methodology icons
+        const methodologyIcons = document.querySelectorAll('.methodology-icon');
+        methodologyIcons.forEach((icon, index) => {
+            icon.style.animationDelay = `${index * 0.2}s`;
+            icon.classList.add('floating');
+        });
+
+        // Animate statistics on scroll
+        const statCards = document.querySelectorAll('.stat-card');
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    const finalValue = parseFloat(statNumber.textContent);
+                    let currentValue = 0;
+                    const increment = finalValue / 50;
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= finalValue) {
+                            statNumber.textContent = finalValue + (finalValue === 20 ? '' : '%');
+                            clearInterval(timer);
+                        } else {
+                            statNumber.textContent = Math.floor(currentValue) + (finalValue === 20 ? '' : '%');
+                        }
+                    }, 30);
+                    
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statCards.forEach(card => {
+            statsObserver.observe(card);
+        });
+
+        // Logout confirmation
+        const logoutBtn = document.querySelector('.btn-logout');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                if (!confirm('Are you sure you want to logout?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add hover effect to team cards
+        const teamCards = document.querySelectorAll('.team-card');
+        teamCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const avatar = card.querySelector('.team-avatar');
+                avatar.style.transform = 'scale(1.1) rotate(5deg)';
+                avatar.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const avatar = card.querySelector('.team-avatar');
+                avatar.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
